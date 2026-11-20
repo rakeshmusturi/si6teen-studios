@@ -1,0 +1,18 @@
+@use "sass:map";
+@use "@carbon/react/scss/config" with (
+  $css--font-face: false,
+  $css--reset: false
+);
+@use "@carbon/react/scss/themes";
+// Carbon's white theme with Si6teen brand colors for links and focus rings
+@use "@carbon/react/scss/theme" with (
+  $theme: map.merge(themes.$white, (
+    link-primary: #5f4bd6,
+    link-primary-hover: #7b68ee,
+    focus: #7b68ee,
+  ))
+);
+@use "@carbon/react/scss/components/tag";
+@use "@carbon/react/scss/components/accordion";
+@use "@carbon/react/scss/components/breadcrumb";
+@use "@carbon/react/scss/components/tile";
