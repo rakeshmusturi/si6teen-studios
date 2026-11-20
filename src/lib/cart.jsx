@@ -44,7 +44,6 @@ const Ctx = createContext(null);
 export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(reducer, []);
   const [ready, setReady] = useState(false); // false until localStorage is read
-  const [open, setOpen] = useState(false); // cart drawer
 
   useEffect(() => {
     try {
@@ -63,9 +62,6 @@ export function CartProvider({ children }) {
     () => ({
       items,
       ready,
-      open,
-      openCart: () => setOpen(true),
-      closeCart: () => setOpen(false),
       count: items.reduce((n, i) => n + i.qty, 0),
       subtotalPaise: items.reduce((n, i) => n + i.qty * i.unitPaise, 0),
       add: (item) => dispatch({ type: "add", item }),
@@ -73,7 +69,7 @@ export function CartProvider({ children }) {
       remove: (variantId) => dispatch({ type: "remove", variantId }),
       clear: () => dispatch({ type: "clear" }),
     }),
-    [items, ready, open],
+    [items, ready],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

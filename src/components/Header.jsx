@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
@@ -17,10 +18,14 @@ const NAV = [
 ];
 
 export default function Header() {
-  const { count, ready, openCart } = useCart();
+  const { count, ready } = useCart();
+  const pathname = usePathname() ?? "";
+  // On phones, product and cart pages show their own back-arrow bar instead
+  const ownsMobileBar = /^\/(products|cart)(\/|$)/.test(pathname);
   return (
     <AppBar position="sticky" color="inherit" elevation={0}
-      sx={{ bgcolor: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", borderBottom: 1, borderColor: "divider" }}>
+      sx={{ display: { xs: ownsMobileBar ? "none" : "flex", md: "flex" },
+            bgcolor: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", borderBottom: 1, borderColor: "divider" }}>
       <Toolbar sx={{ maxWidth: 1200, width: "100%", mx: "auto", justifyContent: "space-between" }}>
         <Link href="/" aria-label="Si6teen home" style={{ display: "flex" }}>
           <Image src="/brand/logo-header.png" alt="Si6teen" width={132} height={32} priority />
@@ -30,7 +35,7 @@ export default function Header() {
             <Button key={n.href} component={Link} href={n.href} color="secondary" size="small">{n.label}</Button>
           ))}
         </Box>
-        <IconButton aria-label="Open cart" onClick={openCart} color="secondary">
+        <IconButton component={Link} href="/cart/" aria-label="Open cart" color="secondary">
           <Badge badgeContent={ready ? count : 0} color="primary">
             <ShoppingBagOutlined />
           </Badge>
