@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import ShoppingBagOutlined from "@mui/icons-material/ShoppingBagOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import { useSearch } from "./SearchDialog";
 import { useCart } from "@/lib/cart";
 
 const NAV = [
@@ -19,6 +21,7 @@ const NAV = [
 
 export default function Header() {
   const { count, ready } = useCart();
+  const { openSearch } = useSearch();
   const pathname = usePathname() ?? "";
   // On phones, product and cart pages show their own back-arrow bar instead
   const ownsMobileBar = /^\/(products|cart)(\/|$)/.test(pathname);
@@ -35,11 +38,14 @@ export default function Header() {
             <Button key={n.href} component={Link} href={n.href} color="secondary" size="small">{n.label}</Button>
           ))}
         </Box>
-        <IconButton component={Link} href="/cart/" aria-label="Open cart" color="secondary">
-          <Badge badgeContent={ready ? count : 0} color="primary">
-            <ShoppingBagOutlined />
-          </Badge>
-        </IconButton>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton aria-label="Search" onClick={openSearch} color="secondary"><SearchIcon /></IconButton>
+          <IconButton component={Link} href="/cart/" aria-label="Open cart" color="secondary">
+            <Badge badgeContent={ready ? count : 0} color="primary">
+              <ShoppingBagOutlined />
+            </Badge>
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
