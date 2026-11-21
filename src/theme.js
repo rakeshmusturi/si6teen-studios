@@ -9,6 +9,7 @@ export const BRAND = {
   lavenderSoft: "#F6F5FF",
   white: "#FFFFFF",
   black: "#1E1E1E",
+  grey: "#F3F3F6",
 };
 
 const theme = createTheme({
@@ -16,11 +17,11 @@ const theme = createTheme({
   palette: {
     primary: { main: BRAND.purple, dark: BRAND.purpleDark, light: BRAND.lavender, contrastText: "#fff" },
     secondary: { main: BRAND.black },
-    text: { primary: BRAND.black, secondary: "#5b5b6b" },
+    text: { primary: BRAND.black, secondary: "#6b6b7b" },
     background: { default: BRAND.white, paper: BRAND.white },
     divider: "#e4e2f5",
   },
-  shape: { borderRadius: 2 }, // the logo is sharp-edged; keep corners tight
+  shape: { borderRadius: 12 },
   typography: {
     fontFamily: '"Poppins", system-ui, -apple-system, sans-serif',
     h1: { fontWeight: 600, letterSpacing: "-0.01em" },
@@ -29,19 +30,17 @@ const theme = createTheme({
     h4: { fontWeight: 600 },
     h5: { fontWeight: 600 },
     h6: { fontWeight: 600 },
-    button: { fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" },
+    button: { fontWeight: 500, letterSpacing: 0, textTransform: "none", fontSize: "1rem" },
   },
   components: {
     MuiButton: {
       defaultProps: { disableElevation: true },
-      styleOverrides: { root: { paddingInline: 24 } },
-    },
-    MuiToggleButton: {
       styleOverrides: {
-        root: {
-          "&.Mui-selected, &.Mui-selected:hover": {
-            backgroundColor: BRAND.lavender, color: BRAND.purpleDark, borderColor: BRAND.purple,
-          },
+        root: { paddingInline: 24, borderRadius: 12 },
+        containedPrimary: {
+          backgroundImage: `linear-gradient(90deg, ${BRAND.purple} 0%, #6B57E6 100%)`,
+          "&:hover": { backgroundImage: `linear-gradient(90deg, #6F5CE6 0%, ${BRAND.purpleDark} 100%)` },
+          "&.Mui-disabled": { backgroundImage: "none" },
         },
       },
     },

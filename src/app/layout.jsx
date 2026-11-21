@@ -10,8 +10,11 @@ import theme from "@/theme";
 import { CartProvider } from "@/lib/cart";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CartDrawer from "@/components/CartDrawer";
+import BottomNav from "@/components/BottomNav";
+import { SearchProvider } from "@/components/SearchDialog";
 import "@/styles/carbon.scss";
+
+export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export const metadata = {
   title: { default: "Si6teen | Fragrance & Skincare", template: "%s | Si6teen" },
@@ -26,12 +29,14 @@ export default function RootLayout({ children }) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <CartProvider>
-              <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-                <Header />
-                <Box component="main" sx={{ flex: 1 }}>{children}</Box>
-                <Footer />
-              </Box>
-              <CartDrawer />
+              <SearchProvider>
+                <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                  <Header />
+                  <Box component="main" sx={{ flex: 1 }}>{children}</Box>
+                  <Footer />
+                </Box>
+                <BottomNav />
+              </SearchProvider>
             </CartProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
