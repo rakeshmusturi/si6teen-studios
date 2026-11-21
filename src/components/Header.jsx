@@ -24,7 +24,7 @@ export default function Header() {
   const { openSearch } = useSearch();
   const pathname = usePathname() ?? "";
   // On phones, product and cart pages show their own back-arrow bar instead
-  const ownsMobileBar = /^\/(products|cart)(\/|$)/.test(pathname);
+  const ownsMobileBar = /^\/(products|cart|checkout)(\/|$)/.test(pathname);
   return (
     <AppBar position="sticky" color="inherit" elevation={0}
       sx={{ display: { xs: ownsMobileBar ? "none" : "flex", md: "flex" },
