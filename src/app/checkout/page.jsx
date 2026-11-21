@@ -159,6 +159,10 @@ export default function CheckoutPage() {
               control={<Checkbox checked={wantGst} onChange={(e) => setWantGst(e.target.checked)} />}
               label={<Typography variant="body2">I have a GST number (for a business invoice)</Typography>} />
             <Collapse in={wantGst}>{field("gstin", "GSTIN", { inputProps: { maxLength: 15, style: { textTransform: "uppercase" } } })}</Collapse>
+            <Typography variant="caption" color="text.secondary">
+              By placing your order you agree to our <Link href="/terms/">Terms and Conditions</Link>,{" "}
+              <Link href="/shipping/">Shipping Policy</Link> and <Link href="/returns/">Refund and Returns Policy</Link>.
+            </Typography>
           </Box>
 
           {/* Desktop: summary card with the pay button */}
